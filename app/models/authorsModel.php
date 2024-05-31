@@ -3,6 +3,16 @@ namespace App\Models\AuthorsModel;
 
 use \PDO;
 
+function findAll(PDO $connexion): array 
+{
+    $sql = "SELECT * 
+            FROM authors 
+            ORDER BY created_at DESC
+            LIMIT 3;";
+    return $connexion->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 function findAllPopulars(PDO $connexion, array $params_user = []) :array
 {
     $params_default = [
@@ -16,7 +26,8 @@ function findAllPopulars(PDO $connexion, array $params_user = []) :array
     $params = array_merge($params_default, $params_user);
     print_r($params);
 
-    $sql = "SELECT AVG(un.note) AS moyenne_notes
+    $sql ="SELECT AVG(un.note) AS moyenne_notes,
+           b.id AS bookID, un.book_id AS bookID
            FROM users_notations un
            JOIN books b ON un.book_id = b.id
            ORDER BY "

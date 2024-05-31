@@ -4,6 +4,17 @@ namespace App\Models\BooksModel;
 
 use \PDO;
 
+function findAll(PDO $connexion): array 
+{
+    $sql = "SELECT *, b.id AS bookID, a.id AS authorID
+            FROM books b
+            JOIN authors a ON b.author_id = a.id
+            ORDER BY b.created_at DESC
+            LIMIT 3;";
+    return $connexion->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 function findAllPopulars(PDO $connexion, array $params_user = []) : array
 {
     $params_default = [
@@ -16,7 +27,7 @@ function findAllPopulars(PDO $connexion, array $params_user = []) : array
     $params = array_merge($params_default, $params_user);
     print_r($params);
 
-    $sql ="SELECT *
+    $sql ="SELECT *, b.id AS bookID, un.book_id AS bookID
            FROM books b
            JOIN users_notations un ON un.book_id = b.id
            ORDER BY "
@@ -34,3 +45,4 @@ $rs->execute();
 return $rs->fetchAll(PDO::FETCH_ASSOC);
 
 }
+
