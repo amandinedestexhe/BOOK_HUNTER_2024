@@ -13,7 +13,7 @@
             </span>
             <img
               class="w-full h-48 object-cover"
-              src="<?php echo $books ['cover']; ?>"
+              src="<?php echo $book['cover']; ?>"
               alt="Movie Cover"
             />
             <div class="p-4">
@@ -29,8 +29,8 @@
                   #bestseller
                 </span>
               </div>
-              <h3 class="text-xl font-bold"><?php echo $books ['title']; ?></h3>
-              <h4 class="text mb-2 text-gray-400"><?php echo $books ['author_id']; ?></h4>
+              <h3 class="text-xl font-bold"><?php echo $book['title']; ?></h3>
+              <h4 class="text mb-2 text-gray-400"><?php echo $book['author_id']; ?></h4>
               <div class="flex items-center mb-2">
                 <span class="text-yellow-500 mr-1">
                   <i class="fas fa-star"></i>
@@ -39,7 +39,7 @@
               </div>
 
               <p class="text-gray-400">
-              <?php echo $books ['resume']; ?>
+              <?php echo \Core\Helpers\truncate($book['resume']); ?>
               </p>
 
               <a
